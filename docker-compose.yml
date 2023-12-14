@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  rapidsai:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    runtime: nvidia  # Specify NVIDIA runtime for GPU support
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all  # Utilize all visible NVIDIA GPUs
+
+    devices:
+      - /dev/nvidia0:/dev/nvidia0
+      - /dev/nvidiactl:/dev/nvidiactl
+      - /dev/nvidia-modeset:/dev/nvidia-modeset
+      - /dev/nvidia-uvm:/dev/nvidia-uvm
