@@ -44,3 +44,8 @@ sudo nvidia-ctk runtime configure --runtime=containerd
 ```sh
 sudo systemctl restart containerd
 ```
+
+## Running docker
+```sh
+docker-compose up
+```

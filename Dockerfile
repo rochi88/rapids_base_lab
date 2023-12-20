@@ -2,8 +2,8 @@
 FROM rapidsai/base:23.12-cuda12.0-py3.10
 
 # Install additional Python packages using pip
-RUN pip install pandas matplotlib scikit-learn 
+RUN pip install numpy pandas matplotlib scikit-learn bdshare
 
-COPY src/main.py .
+COPY src/ .
 
 CMD ["python3", "main.py"]
