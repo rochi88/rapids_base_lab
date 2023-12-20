@@ -8,6 +8,8 @@ services:
     runtime: nvidia  # Specify NVIDIA runtime for GPU support
     environment:
       - NVIDIA_VISIBLE_DEVICES=all  # Utilize all visible NVIDIA GPUs
+    ports:
+      - "5000:5000"
 
     devices:
       - /dev/nvidia0:/dev/nvidia0
