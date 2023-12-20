@@ -49,3 +49,7 @@ sudo systemctl restart containerd
 ```sh
 docker-compose up
 ```
+or 
+```sh
+docker-compose up --build
+```

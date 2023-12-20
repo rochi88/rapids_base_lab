@@ -2,19 +2,25 @@ import cudf
 import numpy as np
 
 import threading
-import logging
-
 # Using flask to make an api 
 # import necessary libraries and functions 
 from flask import Flask, jsonify, request 
 
+from libs import log
+logger = log.get_logger('root')
 
-logger = logging.getLogger('root')
-logger_restapi = logging.getLogger('restapi')
-logger_rapids = logging.getLogger('rapids')
+# import logging
 
-logging.basicConfig(level=logging.DEBUG,
-                    format='%(asctime)s - %(levelname)s - %(message)s')
+# logger = logging.getLogger('root')
+# logger_restapi = logging.getLogger('restapi')
+# logger_rapids = logging.getLogger('rapids')
+
+# logging.basicConfig(level=logging.DEBUG,
+#                     format='%(asctime)s - %(levelname)s - %(message)s')
+
+from pymongo import MongoClient
+
+client = MongoClient("mongo:27017")
 
 app = Flask(__name__)
 
@@ -38,6 +44,14 @@ def disp(num):
     logger_restapi.info(num**2)
     return jsonify({'data': num**2}) 
 
+@app.route('/mongo/test')
+def todo():
+    try:
+        client.admin.command('ismaster')
+    except:
+        return "Server not available"
+    return "Hello from the MongoDB client!\n"
+
 def runApp():
     app.run(debug=True, use_reloader=False, port=5000, host='0.0.0.0')
 
@@ -60,13 +74,13 @@ def runMainWorker():
     # Split the data into features and target variable
     X = gdf.drop(['value', 'target'], axis=1)
     y = gdf['target']
-    logger_rapids.info(y)
+    logger.info(y)
 
 if __name__ == '__main__':
     try:
-        logger_restapi.debug(f'start first thread')
+        logger.debug(f'start first thread')
         t1 = threading.Thread(target=runApp).start()
-        logger_rapids.debug(f'start second thread')
+        logger.debug(f'start second thread')
         t2 = threading.Thread(target=runMainWorker).start()
     except Exception as e:
         logger.error("Unexpected error:" + str(e))
