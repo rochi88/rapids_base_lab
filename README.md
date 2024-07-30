@@ -1,6 +1,11 @@
 # RAPIDS LAB
 
-## Preparation ubuntu 23.10
+### Preparation ubuntu 23.10
+Check nivida driver
+```sh
+nvidia-smi
+```
+
 Install `nvidia-cuda-toolkit`
 ```sh
 sudo add-apt-repository universe
@@ -8,7 +13,7 @@ sudo add-apt-repository multiverse
 sudo apt install nvidia-cuda-toolkit
 ```
 
-Install `nvidia-container-toolkit`
+### Install `nvidia-container-toolkit`
 1. Configure the production repository:
 ```sh
 curl -fsSL https://nvidia.github.io/libnvidia-container/gpgkey | sudo gpg --dearmor -o /usr/share/keyrings/nvidia-container-toolkit-keyring.gpg \
@@ -25,7 +30,7 @@ sudo apt-get update
 sudo apt-get install -y nvidia-container-toolkit
 ```
 
-Configuring Docker
+### Configuring Docker
 1. Configure the container runtime by using the `nvidia-ctk` command:
 ```sh
 sudo nvidia-ctk runtime configure --runtime=docker
@@ -35,7 +40,7 @@ sudo nvidia-ctk runtime configure --runtime=docker
 sudo systemctl restart docker
 ```
 
-Configuring containerd
+### Configuring containerd
 1. Configure the container runtime by using the `nvidia-ctk` command:
 ```sh
 sudo nvidia-ctk runtime configure --runtime=containerd
@@ -47,9 +52,9 @@ sudo systemctl restart containerd
 
 ## Running docker
 ```sh
-docker-compose up
+docker compose up
 ```
 or 
 ```sh
-docker-compose up --build
+docker compose up --build
 ```
