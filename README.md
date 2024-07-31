@@ -1,6 +1,6 @@
 # RAPIDS LAB
 
-### Preparation ubuntu 23.10
+### Preparation ubuntu 23.10/24.04
 Check nivida driver
 ```sh
 nvidia-smi

@@ -2,6 +2,7 @@ import cudf
 import numpy as np
 
 import threading
+
 # Using flask to make an api 
 # import necessary libraries and functions 
 from flask import Flask, jsonify, request 
@@ -40,8 +41,7 @@ def index():
 # this returns 100 (square of 10) 
 @app.route('/home/<int:num>', methods = ['GET']) 
 def disp(num): 
-
-    logger_restapi.info(num**2)
+    logger.info(num**2)
     return jsonify({'data': num**2}) 
 
 @app.route('/mongo/test')
@@ -53,7 +53,11 @@ def todo():
     return "Hello from the MongoDB client!\n"
 
 def runApp():
-    app.run(debug=True, use_reloader=False, port=5000, host='0.0.0.0')
+    # Debug/Development
+    # app.run(debug=True, use_reloader=False, port=5000, host='0.0.0.0')
+
+    # Production
+    app.run(debug=False, use_reloader=False, port=5000, host='0.0.0.0')
 
 def runMainWorker():
     # Load your time series data using cudf
